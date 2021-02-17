@@ -70,7 +70,9 @@ app.put("/update", (req, res) => {
 app.delete("/delete", (req, res) => {
     const {name} = req.body
     BankModel.delete(name);
-    res.sendStatus(204);
+    res.json({
+        message: "bank deleted"
+    });
 })
 
 
