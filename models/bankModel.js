@@ -21,7 +21,11 @@ const bankSchema = new Schema({
         type: Number,
         required: true,
         trim: true
-    },  
+    }, 
+    account: [{
+        type: String,
+        ref: "Account"
+    }] 
 })
 
 

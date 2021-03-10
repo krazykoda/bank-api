@@ -1,4 +1,4 @@
-const BankModel = require('../model')
+const BankModel = require('../models/bankModel')
 
 
 

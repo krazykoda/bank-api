@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 require('dotenv/config');
 const mongoose = require('mongoose');
-const bankRoute = require('./routes/bankRoute')
+const bankRoute = require('./routes/bankRoute');
+const  accountRoute = require('./routes/accountRoute')
 
 const port = process.env.PORT || 5000
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({extended:true}))
 
 //routes
 app.use("/", bankRoute)
+app.use("/account", accountRoute)
 
 
 
