@@ -1,4 +1,5 @@
 const BankModel = require('../models/bankModel')
+const AccountModel = require('../models/accountModel')
 
 
 
@@ -29,8 +30,18 @@ exports.updateBank = async (req, res) => {
 
 exports.deleteBank = async (req, res) => {
     const {id} = req.body
-    await BankModel.deleteOne({_id: id});
-    res.json({
-        message: "bank deleted"
+    BankModel.deleteOne({_id: id}, (err, data) => {
+        if(err) {
+            res.status(500).json({error: err})
+        }
+
+        if(data) {
+            AccountModel.deleteMany({bank: id}, (err, doc) => {
+                if(doc) {
+                    res.json({ message: "bank deleted" });
+                }
+            })
+        }
     });
+   
 }
