@@ -20,6 +20,14 @@ exports.createBankValidation = () => {
     ]
 }
 
+exports.createUserValidation = () => {
+    return [
+        body('username').notEmpty().withMessage("username is required").trim(),
+        body('email').notEmpty().withMessage("email is required").bail().isEmail().withMessage("provide a valid email"),
+        body('password').notEmpty().withMessage("password is required")
+    ]
+}
+
 
 
 //validation results
