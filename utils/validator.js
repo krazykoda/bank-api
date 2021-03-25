@@ -28,6 +28,13 @@ exports.createUserValidation = () => {
     ]
 }
 
+exports.loginUserValidation = () => {
+    return [
+        body('email').notEmpty().withMessage("email is required").bail().isEmail().withMessage("provide a valid email"),
+        body('password').notEmpty().withMessage("password is required")
+    ]
+}
+
 
 
 //validation results

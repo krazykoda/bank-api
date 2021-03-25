@@ -5,7 +5,7 @@ require("dotenv").config()
 
 const saltRound = parseInt(process.env.SALT)
 
-
+//signup
 exports.createUser = async (req, res) => {
     const {username, password, email} = req.body
 
@@ -56,6 +56,47 @@ exports.createUser = async (req, res) => {
         })
         
     }catch(err) {
+        res.status(500).json({error: err.message})
+    }
+}
+
+
+//user login
+exports.login = async (req, res, next) => {
+    try {
+        //get user from db
+        let user = await UserModel.findOne({email: req.body.email})
+
+        //if no user
+        if(!user) {
+            return res.status(400).json({
+                error: {
+                    message: "Wrong Email/Username or Password"
+                }
+            })
+        }
+
+
+        //check password for match
+        const match = await bcrypt.compare(req.body.password, user.password)
+        if(!match) {
+            return res.status(400).json({
+                error: {
+                    message: "Wrong Email/Username or Password"
+                }
+            })
+        }
+
+        
+        //generate token
+        // const token = generateToken({id: user._id})
+        res.status(200).json({
+            message: "Login Success",
+            // token
+        })
+
+    }catch(err) {
+        console.log(err)
         res.status(500).json({error: err.message})
     }
 }
