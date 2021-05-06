@@ -1,5 +1,6 @@
 const UserModel = require("../models/userModel");
 const bcrypt = require("bcrypt")
+const { generateToken } = require("../utils/authentication")
 require("dotenv").config()
 
 
@@ -89,10 +90,10 @@ exports.login = async (req, res, next) => {
 
         
         //generate token
-        // const token = generateToken({id: user._id})
+        const token = generateToken({id: user._id})
         res.status(200).json({
             message: "Login Success",
-            // token
+            token
         })
 
     }catch(err) {
